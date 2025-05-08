@@ -23,7 +23,6 @@ producer = KafkaProducer(
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 
-# List of 20 tickers
 tickers = [
     "AAPL", "MSFT", "GOOGL", "TSLA", "NVDA",
     "NFLX", "META", "JPM", "AMZN", "BRK-B",
