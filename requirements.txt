@@ -11,3 +11,4 @@ matplotlib
 google-auth
 statsmodels
 pytest
+streamlit
