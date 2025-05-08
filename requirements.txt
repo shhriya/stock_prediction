@@ -2,8 +2,13 @@ apache-airflow==2.8.1
 yfinance
 kafka-python
 python-dotenv
-google-cloud-bigtable
 google-cloud-bigquery
+google-cloud-bigtable==2.20.0
+google-cloud-core==2.3.2
+google-api-core==2.11.1
+grpcio==1.62.1
+grpc-google-iam-v1==0.13.0
+protobuf==4.25.3
 scikit-learn
 pandas
 numpy
@@ -13,3 +18,4 @@ statsmodels
 pytest
 streamlit
 plotly
+pandas_market_calendars<4.0.0

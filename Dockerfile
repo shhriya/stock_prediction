@@ -1,12 +1,19 @@
-FROM python:3.10-slim
+# Use a base image with Python 3.10
+FROM apache/airflow:2.8.1-python3.10
 
-WORKDIR /app
+USER root
 
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Install system-level dependencies if needed
+RUN apt-get update && apt-get install -y gcc
 
-COPY scripts/ scripts/
+USER airflow
 
+COPY requirements.txt /
+
+# Install all Python dependencies
+RUN pip install --no-cache-dir -r /requirements.txt
+
+# Copy DAGs and scripts
 COPY dags/ /opt/airflow/dags/
 COPY scripts/ /opt/airflow/scripts/
-CMD ["python3", "scripts/producer.py"]
+COPY credentials/ /opt/airflow/credentials/

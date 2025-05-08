@@ -1,1 +1,6 @@
-echo "credentials/google-credentials.json"
+# # Sensitive files
+# *.json
+# .env
+# /credentials.json
+# /opt/airflow/credentials/credentials.json
+

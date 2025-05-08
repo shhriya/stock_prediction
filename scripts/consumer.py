@@ -22,9 +22,9 @@ logger = logging.getLogger(__name__)
 load_dotenv()
  
 # Configuration
-project_id = os.getenv("GCP_PROJECT_ID")
-instance_id = os.getenv("BIGTABLE_INSTANCE_ID")
-table_id = os.getenv("BIGTABLE_TABLE_ID")
+project_id = os.getenv("PROJECT_ID")
+instance_id = os.getenv("INSTANCE_ID")
+table_id = os.getenv("TABLE_ID")
  
 # Set credentials for Google Cloud client
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
@@ -177,3 +177,4 @@ def main():
  
 if __name__ == "__main__":
     main()
+
