@@ -1,0 +1,13 @@
+apache-airflow==2.8.1
+yfinance
+kafka-python
+python-dotenv
+google-cloud-bigtable
+google-cloud-bigquery
+scikit-learn
+pandas
+numpy
+matplotlib
+google-auth
+statsmodels
+pytest

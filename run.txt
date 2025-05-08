@@ -1,0 +1,48 @@
+.venv/scripts/activate
+
+docker-compose -f kafka/docker-compose.yml down --remove-orphans
+docker-compose -f kafka/docker-compose.yml build 
+--no-cache
+docker-compose -f kafka/docker-compose.yml up
+
+1 : docker-compose -f kafka/docker-compose.yml up --build -d
+
+2 : docker-compose -f kafka/docker-compose.yml run airflow-webserver airflow db init
+
+
+cd kafka
+docker-compose down --volumes --remove-orphans
+cd..
+docker-compose -f kafka/docker-compose.yml up --build -d
+
+docker-compose -f kafka/docker-compose.yml run airflow-webserver airflow db init
+OR---
+docker-compose up --build -d
+
+docker-compose run airflow-webserver airflow db init
+
+
+3 : cd kafka
+4 : docker-compose up --build
+docker ps
+docker exec -it airflow_demo-airflow-webserver-1 bash
+
+
+
+http://localhost:8084
+
+
+
+docker-compose run airflow-webserver airflow users create --username admin --firstname Admin --lastname User --role Admin --email admin@example.com 
+--password admin 
+
+
+
+------------
+COPY table success code
+
+
+
+
+
+docker-compose up airflow-scheduler

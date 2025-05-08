@@ -1,0 +1,20 @@
+.venv\Scripts\activate
+
+pip install -r requirements.txt
+
+
+python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"   --fernet key
+
+
+# Build your custom Airflow image
+docker-compose build
+
+# Start Airflow
+docker-compose up -d
+
+
+pip install "apache-airflow==2.7.2" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.2/constraints-3.11.txt" 
+
+
+
+
