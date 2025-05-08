@@ -3,6 +3,12 @@ from unittest.mock import patch, MagicMock
 import pandas as pd
 from datetime import datetime
 import producer  # Import your producer module directly
+from unittest.mock import patch, MagicMock
+
+@patch("producer.KafkaProducer")
+def test_producer_init(mock_kafka_producer):
+    mock_kafka_producer.return_value = MagicMock()
+import producer  # Re-import inside test to trigger KafkaProducer with mock
 
 class TestProducer(unittest.TestCase):
 

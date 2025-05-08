@@ -10,6 +10,14 @@ import plotly.graph_objects as go
 from unittest.mock import Mock, patch, MagicMock
 from app import *
  
+
+from unittest.mock import patch, MagicMock
+
+@patch("google.oauth2.service_account.Credentials.from_service_account_file")
+def test_app_runs(mock_creds):
+    mock_creds.return_value = MagicMock()
+    # now call your main functions that depend on BigQuery
+
 # Fixtures
 @pytest.fixture
 def mock_data():
