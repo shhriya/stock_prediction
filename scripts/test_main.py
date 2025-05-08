@@ -100,7 +100,7 @@ def test_get_date_range_empty_database(mock_bigquery_client):
     mock_result = MockEmptyResult()
     mock_bigquery_client.query.return_value.result.return_value = mock_result
    
-    with patch('main.get_bigquery_client', return_value=mock_bigquery_client):
+    with patch('train_model.get_bigquery_client', return_value=mock_bigquery_client):
         with pytest.raises(StopIteration):
             get_date_range(CONFIG)
  
@@ -117,7 +117,7 @@ def test_download_data_success(mock_bigquery_client):
    
     mock_bigquery_client.query.return_value.to_dataframe.return_value = mock_df
    
-    with patch('main.get_bigquery_client', return_value=mock_bigquery_client):
+    with patch('train_model.get_bigquery_client', return_value=mock_bigquery_client):
         result = download_data(
             CONFIG,
             'AAPL',
@@ -133,7 +133,7 @@ def test_download_data_no_data(mock_bigquery_client):
     mock_df = pd.DataFrame(columns=['date', 'open_price', 'high_price', 'low_price', 'close_price', 'volume'])
     mock_bigquery_client.query.return_value.to_dataframe.return_value = mock_df
    
-    with patch('main.get_bigquery_client', return_value=mock_bigquery_client):
+    with patch('train_model.get_bigquery_client', return_value=mock_bigquery_client):
         result = download_data(
             CONFIG,
             'INVALID',
