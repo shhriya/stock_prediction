@@ -79,7 +79,7 @@ def test_get_date_range_success(mock_bigquery_client):
     mock_result = MockResult()
     mock_bigquery_client.query.return_value.result.return_value = mock_result
    
-    with patch('main.get_bigquery_client', return_value=mock_bigquery_client):
+    with patch('train_model.get_bigquery_client', return_value=mock_bigquery_client):
         min_date, max_date = get_date_range(CONFIG)
         assert min_date == expected_min_date
         assert max_date == expected_max_date
