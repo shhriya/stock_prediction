@@ -66,7 +66,7 @@ def test_invalid_ticker_selection():
     assert ticker not in ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA", "NFLX", "META", "JPM"]
  
 # Data Loading Tests
-@patch('main.download_data')
+@patch('train_model.download_data')
 def test_data_loading_success(mock_download):
     mock_data = pd.DataFrame({
         'date': pd.date_range(start='2023-01-01', end='2023-01-10'),
@@ -79,7 +79,7 @@ def test_data_loading_success(mock_download):
     assert len(result) == 10
     assert 'close_price' in result.columns
  
-@patch('main.download_data')
+@patch('train_model.download_data')
 def test_data_loading_empty(mock_download):
     mock_download.return_value = pd.DataFrame()
     result = mock_download(CONFIG, 'INVALID', date(2023, 1, 1), date(2023, 1, 10))
@@ -142,9 +142,9 @@ def test_residuals_plot_creation(mock_plotly_chart, mock_model):
     mock_plotly_chart.assert_called_once()
  
 # Integration Tests
-@patch('main.download_data')
-@patch('main.fit_sarima_model')
-@patch('main.forecast')
+@patch('train_model.download_data')
+@patch('train_model.fit_sarima_model')
+@patch('train_model.forecast')
 def test_end_to_end_workflow(mock_forecast, mock_fit_model, mock_download, mock_data, mock_model):
     # Mock data download
     mock_download.return_value = mock_data
@@ -167,20 +167,20 @@ def test_end_to_end_workflow(mock_forecast, mock_fit_model, mock_download, mock_
     assert len(predictions) == 10
  
 # Error Handling Tests
-@patch('main.download_data')
+@patch('train_model.download_data')
 def test_handle_download_error(mock_download):
     mock_download.side_effect = Exception("API Error")
     with pytest.raises(Exception):
         mock_download(CONFIG, 'AAPL', date(2023, 1, 1), date(2023, 1, 10))
  
-@patch('main.fit_sarima_model')
+@patch('train_model.fit_sarima_model')
 def test_handle_model_fitting_error(mock_fit_model, mock_data):
     mock_fit_model.side_effect = ValueError("Invalid parameters")
     with pytest.raises(ValueError):
         mock_fit_model(mock_data['close_price'], p=-1, d=1, q=1, seasonal_order=12)
  
 # Performance Tests
-@patch('main.download_data')
+@patch('train_model.download_data')
 def test_large_data_handling(mock_download):
     # Create large dataset
     dates = pd.date_range(start='2020-01-01', end='2023-12-31')
