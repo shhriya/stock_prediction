@@ -31,9 +31,10 @@ CONFIG = {
 def get_bigquery_client(config):
     credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIAL")
     credentials = service_account.Credentials.from_service_account_file(
-        config['bigquery']['credentials_path'],
-        scopes=['https://www.googleapis.com/auth/bigquery']
-    )
+    credentials_path,
+    scopes=['https://www.googleapis.com/auth/bigquery']
+)
+
     return bigquery.Client(credentials=credentials, project=config['bigquery']['project_id'])
  
  
