@@ -59,6 +59,6 @@ EXPOSE 8501
 # Write the credentials JSON from environment variable and start Streamlit
 CMD bash -c "\
   mkdir -p /app/credentials && \
-  echo \"$GCP_CREDENTIAL_JSON\" > /app/credentials/credentials.json && \
+  echo \"$GCP_CREDENTIAL_JSON_B64\" | base64 --decode > /app/credentials/credentials.json && \
   export GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/credentials.json && \
   streamlit run scripts/app.py --server.port=10000 --server.address=0.0.0.0"
