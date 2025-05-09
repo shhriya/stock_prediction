@@ -13,6 +13,7 @@ from main import (
     CONFIG, get_date_range, download_data, is_stationary,
     decompose_series, fit_sarima_model, forecast, prepare_forecast_dataframe
 )
+#hi
 def main():
     st.title('Stock Market Forecasting App')
     st.subheader('This app forecasts the stock market price of selected companies.')
