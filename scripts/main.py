@@ -28,13 +28,19 @@ CONFIG = {
 }
  
  
+import os
+
 def get_bigquery_client(config):
-    credentials_path = config['bigquery']['credentials_path']  # Use from config, not direct env
+    # Automatically choose the path depending on environment
+    credentials_path = config['bigquery']['credentials_path']
+    if not os.path.exists(credentials_path):
+        # Fallback to local
+        credentials_path = "credentials/credentials.json"
     credentials = service_account.Credentials.from_service_account_file(
-    credentials_path,
-    scopes=['https://www.googleapis.com/auth/bigquery']
-)
-    return bigquery.Client(credentials=credentials, project=config['bigquery']['project_id'])
+        credentials_path,
+        scopes=['https://www.googleapis.com/auth/bigquery']
+    )
+    return bigquery.Client(credentials=credentials, project=credentials.project_id)
  
  
 def get_date_range(config):
