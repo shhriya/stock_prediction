@@ -19,3 +19,5 @@ pytest
 streamlit
 plotly
 pandas_market_calendars<4.0.0
+db-dtypes
+
