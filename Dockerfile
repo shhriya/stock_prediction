@@ -17,3 +17,7 @@ RUN pip install --no-cache-dir -r /requirements.txt
 COPY dags/ /opt/airflow/dags/
 COPY scripts/ /opt/airflow/scripts/
 # COPY credentials/ /opt/airflow/credentials/
+EXPOSE 8084
+CMD ["airflow", "standalone", "--port", "8084"]
+
+
