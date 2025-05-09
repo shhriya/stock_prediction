@@ -9,6 +9,9 @@ import io
 import numpy as np
 from datetime import date, timedelta
 import pandas_market_calendars as mcal
+from dotenv import load_dotenv
+load_dotenv()
+
 from main import (
     CONFIG, get_date_range, download_data, is_stationary,
     decompose_series, fit_sarima_model, forecast, prepare_forecast_dataframe

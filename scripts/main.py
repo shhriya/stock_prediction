@@ -16,7 +16,7 @@ load_dotenv()
 
 CONFIG = {
     'bigquery': {
-        'credentials_path': os.getenv("GOOGLE_APPLICATION_CREDENTIALS"),
+        'credentials_path': os.getenv("GOOGLE_APPLICATION_CREDENTIAL"),
         "project_id": os.getenv("PROJECT_ID"),
         "dataset_id": os.getenv("DATASET_ID"),
         "table_id": os.getenv("BQ_TABLE"),
@@ -29,7 +29,7 @@ CONFIG = {
  
  
 def get_bigquery_client(config):
-    credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+    credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIAL")
     credentials = service_account.Credentials.from_service_account_file(
         config['bigquery']['credentials_path'],
         scopes=['https://www.googleapis.com/auth/bigquery']

@@ -16,4 +16,4 @@ RUN pip install --no-cache-dir -r /requirements.txt
 # Copy DAGs and scripts
 COPY dags/ /opt/airflow/dags/
 COPY scripts/ /opt/airflow/scripts/
-# COPY credentials/ /opt/airflow/credentials/
+COPY credentials/ /opt/airflow/credentials/
