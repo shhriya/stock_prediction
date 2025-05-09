@@ -34,7 +34,6 @@ def get_bigquery_client(config):
     credentials_path,
     scopes=['https://www.googleapis.com/auth/bigquery']
 )
-
     return bigquery.Client(credentials=credentials, project=config['bigquery']['project_id'])
  
  
