@@ -45,10 +45,21 @@ def fitted_sarima_model(sample_time_series):
     return model
  
 # BigQuery Client Tests
-def test_get_bigquery_client_success(mock_credentials):
+from unittest.mock import patch, Mock
+
+def test_get_bigquery_client_success():
+    mock_credentials = Mock()
+    mock_credentials.project_id = 'test-project-id'
+
     with patch('google.oauth2.service_account.Credentials.from_service_account_file', return_value=mock_credentials):
-        client = get_bigquery_client(CONFIG)
-        assert isinstance(client, bigquery.Client)
+        with patch('google.cloud.bigquery.Client') as mock_client:
+            client = get_bigquery_client(CONFIG)
+            mock_client.assert_called_once_with(credentials=mock_credentials, project='test-project-id')
+
+# def test_get_bigquery_client_success(mock_credentials):
+#     with patch('google.oauth2.service_account.Credentials.from_service_account_file', return_value=mock_credentials):
+#         client = get_bigquery_client(CONFIG)
+#         assert isinstance(client, bigquery.Client)
  
 def test_get_bigquery_client_invalid_credentials():
     with patch('google.oauth2.service_account.Credentials.from_service_account_file') as mock_creds:
