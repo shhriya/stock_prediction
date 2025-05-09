@@ -1,23 +1,27 @@
-# Use a base image with Python 3.10
-FROM apache/airflow:2.8.1-python3.10
+# # Use an official Python image
+FROM python:3.10-slim
 
-USER root
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Install system-level dependencies if needed
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y gcc
 
-USER airflow
+# Copy dependency file
+COPY requirements.txt .
 
-COPY requirements.txt /
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install all Python dependencies
-RUN pip install --no-cache-dir -r /requirements.txt
+# Copy app code
+COPY . .
 
-# Copy DAGs and scripts
-COPY dags/ /opt/airflow/dags/
-COPY scripts/ /opt/airflow/scripts/
-# COPY credentials/ /opt/airflow/credentials/
-EXPOSE 8084
-CMD ["airflow", "standalone", "--port", "8084"]
+# Expose the default Streamlit port (but Render auto-detects PORT)
+EXPOSE 8501
 
-
+# Start Streamlit, binding to host 0.0.0.0 and port from Render
+CMD ["streamlit", "run", "app.py", "--server.port=10000", "--server.address=0.0.0.0"]
