@@ -60,5 +60,5 @@ EXPOSE 8501
 CMD bash -c "\
   mkdir -p /app/credentials && \
   echo \"$GCP_CREDENTIAL_JSON\" > /app/credentials/credentials.json && \
-  export GOOGLE_APPLICATION_CREDENTIAL=/app/credentials/credentials.json && \
+  export GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/credentials.json && \
   streamlit run scripts/app.py --server.port=10000 --server.address=0.0.0.0"
