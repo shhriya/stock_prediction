@@ -17,7 +17,6 @@ This project implements a full-fledged **stock price forecasting pipeline** usin
 
 # Architecture Overview
 
-```mermaid
 graph TD
     A[yfinance (Daily Stock Data)] --> B[Bigtable (Raw Storage)]
     B --> C[BigQuery (Processed Storage)]
@@ -32,25 +31,46 @@ graph TD
 
 stock_project/
 ├── scripts/
-│   ├── app.py                 # Streamlit app
-│   ├── consumer.py            # Pulls daily data from yfinance and writes to Bigtable
-│   ├── main.py                # Bigtable ↔ BigQuery interaction + model training
-│   ├── transform.py           # Data preprocessing for modeling
-├── dags/
-│   └── stock_forecasting_dag.py  # Airflow DAG to orchestrate the pipeline
-├── tests/
+│   ├── app.py                      # Streamlit app
+│   ├── consumer.py                # Pulls daily data from yfinance and writes to Bigtable
+│   ├── producer.py
+│   ├── main.py                    # Bigtable ↔ BigQuery interaction + model training
+│   ├── bigtable_to_bigquery.py   # Data preprocessing for modeling
 │   ├── test_app.py
 │   ├── test_main.py
 │   ├── test_consumer.py
+│   ├── test_producer.py
 │   ├── test_transform.py
+├── producer/
+│   └── kafka_producer.py
+├── consumer/
+│   └── bigtable_consumer.py      # [Fixed typo from "bigtanle_consumer.py"]
+├── model/
+│   └── train_model.py
+├── bigtable/
+│   ├── bigtable_setup.py
+│   └── bigtable_to_bigquery.py
+├── bigquery/
+│   ├── aggregated_data.sql
+│   └── run_stored_procedure.py
+├── kafka/                         # Reserved for Kafka config/scripts (if any)
+├── historical_data/
+│   └── backfill_to_bigquery.py
+├── dags/
+│   └── stock_pipeline_dag.py     # Airflow DAG to orchestrate the pipeline
 ├── credentials/
-│   └── credentials.json       # (GCP service account - not pushed to repo)
-├── .github/workflows/
-│   └── ci-cd.yml              # GitHub Actions workflow for CI/CD
+│   └── credentials.json          # (GCP service account - should not be pushed to repo)
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml             # GitHub Actions workflow for CI/CD
 ├── requirements.txt
-├── Dockerfile (if used)
+├── entrypoint.sh                 # For Airflow setup (automatically runs necessary commands)
+├── Dockerfile
+├── docker-compose.yaml
 ├── README.md
-└── .env.example
+├── .gitignore
+└── .env
+
 
 
 # Airflow DAG Details
